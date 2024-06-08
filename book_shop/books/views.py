@@ -1,38 +1,19 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Book, Author, Genre ,Login
+from .serializers import BookSerializer, AuthorSerializer, GenreSerializer, LoginSerializer 
 
-# Create your views here.
-from rest_framework import generics
-from .models import Book, Author, Genre
-from .serializers import BookSerializer, AuthorSerializer, GenreSerializer
-
-class BookListCreate(generics.ListCreateAPIView):
+class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-class BookRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Book.objects.all()
-    serializer_class = BookSerializer
-
-class AuthorListCreate(generics.ListCreateAPIView):
+class AuthorViewSet(viewsets.ModelViewSet):
     queryset = Author.objects.all()
     serializer_class = AuthorSerializer
 
-class AuthorRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Author.objects.all()
-    serializer_class = AuthorSerializer
-
-class GenreListCreate(generics.ListCreateAPIView):
+class GenreViewSet(viewsets.ModelViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
 
-class GenreRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Genre.objects.all()
-    serializer_class = GenreSerializer
-
-from django.http import JsonResponse
-
-def api_root(request):
-    data = {
-        'message': 'Welcome to the API'
-    }
-    return JsonResponse(data)
+class LoginViewSet(viewsets.ModelViewSet):
+    queryset = Login.objects.all()
+    serializer_class = LoginSerializer
